@@ -1,0 +1,171 @@
+{
+  "info": {
+    "_postman_id": "6f1c2a7e-3b9d-4e51-9a2f-7c8d0e4b1a23",
+    "name": "TaskFlow API",
+    "description": "TaskFlow - Görev ve Proje Yönetim Sistemi REST API uçlarının test koleksiyonu.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        },
+        "description": "Sunucunun ayakta olduğunu ve çalışma süresini (saniye) döner."
+      },
+      "response": []
+    },
+    {
+      "name": "Tüm Görevleri Listele",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/tasks",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tasks"]
+        },
+        "description": "Kayıtlı tüm görevleri ve toplam sayısını döner."
+      },
+      "response": []
+    },
+    {
+      "name": "Yeni Görev Oluştur",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Raporlama servisi\",\n  \"description\": \"Haftalık görev tamamlama raporunun PDF olarak üretilmesi\",\n  \"status\": \"pending\",\n  \"priority\": \"high\",\n  \"assignee\": \"Ayşe Çelik\",\n  \"project\": \"TaskFlow Backend\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/tasks",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tasks"]
+        },
+        "description": "Yeni bir görev oluşturur. title zorunludur; status verilmezse pending, priority verilmezse medium atanır."
+      },
+      "response": []
+    },
+    {
+      "name": "Görev Detayı",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/tasks/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tasks", "1"]
+        },
+        "description": "id değeri 1 olan görevin detayını döner."
+      },
+      "response": []
+    },
+    {
+      "name": "Görev Güncelle",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"completed\",\n  \"priority\": \"medium\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/tasks/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tasks", "1"]
+        },
+        "description": "id değeri 1 olan görevi kısmi olarak günceller. Gönderilmeyen alanlar değişmez, updatedAt yenilenir."
+      },
+      "response": []
+    },
+    {
+      "name": "Görev Sil",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/tasks/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tasks", "1"]
+        },
+        "description": "id değeri 1 olan görevi siler."
+      },
+      "response": []
+    },
+    {
+      "name": "Hata — Olmayan Görev",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/tasks/999",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tasks", "999"]
+        },
+        "description": "Var olmayan bir id istendiğinde 404 hata yanıtı döner."
+      },
+      "response": []
+    },
+    {
+      "name": "Hata — Başlıksız Görev",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"Başlık alanı eksik gönderilen görev\",\n  \"priority\": \"low\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/tasks",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "tasks"]
+        },
+        "description": "title alanı olmadan gönderilen istek 400 hata yanıtı döner."
+      },
+      "response": []
+    }
+  ]
+}

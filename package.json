@@ -1,0 +1,33 @@
+{
+  "name": "taskflow-api",
+  "version": "1.0.0",
+  "description": "Gorev ve Proje Yonetim Sistemi REST API",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [
+    "rest",
+    "api",
+    "express",
+    "task-management"
+  ],
+  "author": "Ahmet Arslan",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "src/data/tasks.json",
+      "logs/*"
+    ]
+  }
+}
